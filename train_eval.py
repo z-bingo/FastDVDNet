@@ -11,9 +11,6 @@ from data_provider import Video_Provider
 import os, sys, shutil
 import torch.optim as optim
 import time
-import setproctitle
-
-setproctitle.setproctitle('ZhangBin')
 
 def args_parser():
     parser = argparse.ArgumentParser()
