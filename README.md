@@ -24,5 +24,6 @@ You can choose the dataset you like to train or validate the effectiveness of Fa
 ## References
 1. [FastDVDNet:ToWards Real-Time Video Denoising Without Explicit Motion Estimation](https://arxiv.org/pdf/1907.01361.pdf)
 2. [DVDNet: A Fast Network For Deep Video Denoising](https://arxiv.org/pdf/1906.11890.pdf)
+3. Code of U-Net is based on [my previous work](https://github.com/z-bingo/Recurrent-Fully-Convolutional-Networks/blob/master/U_Net.py)
 
 *Support me by starring or forking this repo., please.*
