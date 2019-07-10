@@ -7,7 +7,7 @@ This repo. is an unofficial version of [FastDVDNet:ToWards Real-Time Video Denoi
 2. Numpy
 
 ## References
-[1] (https://arxiv.org/pdf/1907.01361.pdf "FastDVDNet:ToWards Real-Time Video Denoising Without Explicit Motion Estimation")
-[2] (https://arxiv.org/pdf/1906.11890.pdf "DVDNet: A Fast Network For Deep Video Denoising")
+1. [FastDVDNet:ToWards Real-Time Video Denoising Without Explicit Motion Estimation](https://arxiv.org/pdf/1907.01361.pdf)
+2. [DVDNet: A Fast Network For Deep Video Denoising](https://arxiv.org/pdf/1906.11890.pdf)
 
-Support me by starring or forking this repo., please.
+*Support me by starring or forking this repo., please.*
