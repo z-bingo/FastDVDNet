@@ -1,0 +1,8 @@
+numpy
+torch==1.0.1
+torchvision==0.2.2.post3
+torchsummary==1.5.1
+scikit_image==0.15.0
+setproctitle
+Pillow
+tensorboardX
