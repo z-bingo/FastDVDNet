@@ -1,4 +1,6 @@
-# FastDVDNet
+## FastDVDNet
+The source code will be released in the few days, please stay tuned.
+
 ## Introduction
 This repo. is an unofficial version of [FastDVDNet:ToWards Real-Time Video Denoising Without Explicit Motion Estimation](https://arxiv.org/pdf/1907.01361.pdf) by making use of PyTorch.
 
