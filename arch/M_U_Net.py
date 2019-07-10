@@ -1,10 +1,17 @@
 import torch
 import torch.nn as nn
-from torchsummary import summary
 import numpy as np
 
+
 class M_U_Net(nn.Module):
-    def __init__(self, in_channel=10, out_channel=3):
+    """
+    The Block Module in paper, a modified U-Net
+    """
+    def __init__(self, in_channel=12, out_channel=3):
+        """
+        :param in_channel:
+        :param out_channel:
+        """
         super(M_U_Net, self).__init__()
         self.conv1 = nn.Sequential(
             nn.Conv2d(in_channel, 90, 3, 1, 1),
@@ -59,6 +66,11 @@ class M_U_Net(nn.Module):
         )
 
     def forward(self, data, ref):
+        """
+        :param data: noisy frames
+        :param ref: reference frame that is the middle frame of noisy frames
+        :return:
+        """
         conv1 = self.conv1(data)
         conv2 = self.conv2(conv1)
         conv3 = self.conv3(conv2)
