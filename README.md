@@ -62,9 +62,14 @@ optional arguments:
 The model is trained on a TITAN Xp GPU with patch size of 96*96 and total 70000 iterations.
 
 Several groups of simulated images are uploaded at [here](https://github.com/z-bingo/FastDVDNet/blob/master/results). The FastDVDNet could work well based on the Vimeo-90K dataset totally, one of results is shown as  
+##### ground of truth
 ![ground-of-truth](https://github.com/z-bingo/FastDVDNet/blob/master/results/2_gt.png)  
+##### noisy reference
 ![noisy-ref](https://github.com/z-bingo/FastDVDNet/blob/master/results/2_noisy.png)  
-![pred-image](https://github.com/z-bingo/FastDVDNet/blob/master/results/2_pred_30.02dB_0.7728.png)
+##### predicted image
+![pred-image](https://github.com/z-bingo/FastDVDNet/blob/master/results/2_pred_30.02dB_0.7728.png)  
+
+However, there are still some artifacts existing, for example, the left side of this [image](https://github.com/z-bingo/FastDVDNet/blob/master/results/4_pred_35.87dB_0.9505.png) has a large area of green spots. I will investigate the reason of this.
 
 ## References
 1. [FastDVDNet:ToWards Real-Time Video Denoising Without Explicit Motion Estimation](https://arxiv.org/pdf/1907.01361.pdf)
