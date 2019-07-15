@@ -59,7 +59,12 @@ optional arguments:
 ```
 
 ## Results
+The model is trained on a TITAN Xp GPU with patch size of 96*96 and total 70000 iterations.
 
+Several groups of simulated images are uploaded at [here](https://github.com/z-bingo/FastDVDNet/blob/master/results). The FastDVDNet could work well based on the Vimeo-90K dataset totally, one of results is shown as  
+![ground-of-truth](https://github.com/z-bingo/FastDVDNet/blob/master/results/2_gt.png)  
+![noisy-ref](https://github.com/z-bingo/FastDVDNet/blob/master/results/2_noisy.png)  
+![pred-image](https://github.com/z-bingo/FastDVDNet/blob/master/results/2_pred_30.02dB_0.7728.png)
 
 ## References
 1. [FastDVDNet:ToWards Real-Time Video Denoising Without Explicit Motion Estimation](https://arxiv.org/pdf/1907.01361.pdf)
