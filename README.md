@@ -1,8 +1,8 @@
 ## FastDVDNet
+The model file has released at [here](https://github.com/z-bingo/FastDVDNet/tree/master/models)!  
+  
 TODO LIST: 
-1. Train the network, and upload the trained model
-2. write the documents
-3. write the code of single-stage model, single-scale model to verify the superiority of FastDVDNet
+1. write the code of single-stage model, single-scale model to verify the superiority of FastDVDNet
 
 ## Introduction
 This repo. is an unofficial version of [FastDVDNet:ToWards Real-Time Video Denoising Without Explicit Motion Estimation](https://arxiv.org/pdf/1907.01361.pdf) by making use of PyTorch.
@@ -27,6 +27,39 @@ You can choose the dataset you like to train or validate the effectiveness of Fa
 `CUDA_VISIBLE_DEVICES=1,2 python train_eval.py --cuda -nw 16 --frames 5 -s 96 -bs 64 -lr 1e-4 --restart`
 5. As for validation mode,<br>
 `CUDA_VISIBLE_DEVICES=1,2 python train_eval.py --cuda --eval`
+for this mode, the command `-s` is unavailable, image size is default 448*256.
+
+### Details
+
+```
+train_eval.py [-h] [--dataset_path DATASET_PATH] [--txt_path TXT_PATH]
+                     [--batch_size BATCH_SIZE] [--frames FRAMES]
+                     [--im_size IM_SIZE] [--learning_rate LEARNING_RATE]
+                     [--num_worker NUM_WORKER] [--restart] [--eval] [--cuda]
+                     [--max_epoch MAX_EPOCH]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --dataset_path DATASET_PATH, -dp DATASET_PATH
+                        the path of vimeo-90k
+  --txt_path TXT_PATH, -tp TXT_PATH
+                        the path of train/eval txt file
+  --batch_size BATCH_SIZE, -bs BATCH_SIZE
+                        batch size
+  --frames FRAMES, -f FRAMES
+  --im_size IM_SIZE, -s IM_SIZE
+  --learning_rate LEARNING_RATE, -lr LEARNING_RATE
+  --num_worker NUM_WORKER, -nw NUM_WORKER
+                        number of workers to load data by dataloader
+  --restart, -r         whether to restart the train process
+  --eval, -e            whether to work on the eval mode
+  --cuda                whether to train the network on the GPU, default is
+                        mGPU
+  --max_epoch MAX_EPOCH
+```
+
+## Results
+
 
 ## References
 1. [FastDVDNet:ToWards Real-Time Video Denoising Without Explicit Motion Estimation](https://arxiv.org/pdf/1907.01361.pdf)
