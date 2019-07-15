@@ -41,17 +41,29 @@ class Video_Provider(Dataset):
     def __getitem__(self, index):
         img_files = self._get_file_name(index)
 
-        hs, ws = self._get_crop_h_w()
-        gt = torch.zeros(3, self.im_size, self.im_size)
-        noised = torch.zeros(self.frames+1, 3, self.im_size, self.im_size)
-        sigma = self._get_random_sigma()
-        for i, file in enumerate(img_files):
-            img = Image.open(file)
-            img = self.trans(img)[:, hs:hs+self.im_size, ws:ws+self.im_size]
-            if i == self.frames//2 + self.frames%2:
-                gt = img
-            noised[i, ...] = torch.clamp(img + sigma*torch.randn_like(img), 0.0, 1.0)
-        noised[-1, ...] = sigma * torch.ones_like(gt)
+        if not self.im_size is None:
+            hs, ws = self._get_crop_h_w()
+            gt = torch.zeros(3, self.im_size, self.im_size)
+            noised = torch.zeros(self.frames+1, 3, self.im_size, self.im_size)
+            sigma = self._get_random_sigma()
+            for i, file in enumerate(img_files):
+                img = Image.open(file)
+                img = self.trans(img)[:, hs:hs+self.im_size, ws:ws+self.im_size]
+                if i == self.frames//2:
+                    gt = img
+                noised[i, ...] = torch.clamp(img + sigma*torch.randn_like(img), 0.0, 1.0)
+            noised[-1, ...] = sigma * torch.ones_like(gt)
+        else:
+            sigma = self._get_random_sigma()
+            noised = []
+            for i, file in enumerate(img_files):
+                img = Image.open(file)
+                img = self.trans(img)
+                if i == self.frames//2:
+                    gt = img
+                noised.append(torch.clamp(img + sigma*torch.randn_like(img), 0.0, 1.0))
+            noised.append(sigma*torch.ones_like(gt))
+            noised = torch.stack(noised, dim=0)
         return noised, gt
 
     def __len__(self):

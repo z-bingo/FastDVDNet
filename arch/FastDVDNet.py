@@ -15,9 +15,8 @@ class FastDVDNet(nn.Module):
         self.in_frames = in_frames
         channel = 3 if color else 1
         in1 = (3 + (1 if sigma_map else 0)) * channel
-        in2 = 3 * channel
         self.block1 = M_U_Net(in1, channel)
-        self.block2 = M_U_Net(in2, channel)
+        self.block2 = M_U_Net(in1, channel)
 
     def forward(self, input):
         """
@@ -37,4 +36,4 @@ class FastDVDNet(nn.Module):
             ))
         # second stage
         data_temp = torch.cat(data_temp, dim=1)
-        return self.block2(data_temp, frames[:, N//2+N%2, ...])
+        return self.block2(torch.cat([data_temp, map.squeeze(1)], dim=1), frames[:, N//2, ...])

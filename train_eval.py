@@ -11,6 +11,9 @@ from data_provider import Video_Provider
 import os, sys, shutil
 import torch.optim as optim
 import time
+import setproctitle
+
+setproctitle.setproctitle('ZhangBin')
 
 def args_parser():
     parser = argparse.ArgumentParser()
@@ -140,7 +143,7 @@ def eval(args):
     data_set = Video_Provider(
         base_path=args.dataset_path,
         txt_file=os.path.join(args.txt_path, 'sep_testlist.txt'),
-        im_size=256,
+        im_size=None,
         frames=args.frames
     )
     data_loader = DataLoader(
@@ -160,7 +163,10 @@ def eval(args):
     state = load_checkpoint('./models', is_best=True)
     model.load_state_dict(state['state_dict'])
     model.eval()
+    print('Model load OK!')
 
+    if not os.path.exists('./eval_images'):
+        os.mkdir('./eval_images')
     rm_sub_files('./eval_images')
     trans = transforms.ToPILImage()
     for i, (data, gt) in enumerate(data_loader):
@@ -175,13 +181,14 @@ def eval(args):
         ssim_pred = calculate_ssim(pred, gt)
 
         if args.cuda:
-            data = data.cpu().numpy()
-            gt = gt.cpu().numpy()
-        pred = pred.cpu().numpy()
+            data = data.cpu()
+            gt = gt.cpu()
+        pred = pred.cpu().clamp(0.0, 1.0)
 
-        trans((data[0, 6:9, ...] * 255.0).as_type(np.uint8)).save('{}_noisy.png'.format(i), quality=100)
-        trans((gt * 255.0).as_type(np.uint8)).save('{}_gt.png'.format(i), quality=100)
-        trans((pred * 255.0).as_type(np.uint8)).save('{}_pred_{:.2f}dB_{:.4f}.png'.format(i, psnr_pred, ssim_pred), quality=100)
+        trans(data[0, 2, ...]).save('./eval_images/{}_noisy.png'.format(i), quality=100)
+        trans(gt[0, ...]).save('./eval_images/{}_gt.png'.format(i), quality=100)
+        trans(pred[0, ...]).save('./eval_images/{}_pred_{:.2f}dB_{:.4f}.png'.format(i, psnr_pred, ssim_pred), quality=100)
+        print('Image {} is OK!'.format(i))
 
 
 
@@ -191,4 +198,5 @@ if __name__ == '__main__':
     if not args.eval:
         train(args)
     else:
-        eval(args)
+        with torch.no_grad():
+            eval(args)
